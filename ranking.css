@@ -1,0 +1,40 @@
+body{
+    background-color: darkgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#marco{
+    border: 1px solid black;
+    background-color: rgb(196, 152, 86);
+    border-radius: 5px;
+    text-align: center;
+    height: auto;
+    width: 400px;
+}
+h1{
+    margin: 20px;
+}
+#trofeo1{
+    width: 30px;
+    height: 30px;
+    border: 5px;
+}
+h3{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: blanchedalmond;
+}
+#nombres{
+    margin-bottom: 50px;
+
+}
+
+#volver{
+    scale: 1.2;
+    background-color: blanchedalmond;
+}
+
+

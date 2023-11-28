@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Styles.css" />
+  <title>bombparty</title>
+
+  <video autoplay muted loop id="video">
+    <source src="Media/pixel.mp4" type="video/mp4">
+  </video>
+</head>
+<body>
+  <center>
+    <div id="instrucciones">
+      <h1>BombParty!</h1>
+      <h3>Este juego es para dos jugadores</h3>
+      <h3>El primer jugador escribe una palabra y el siguiente ha de poner una que contenga los caracteres que se
+        muestren dentro del tiempo.</h3>
+      <h4>¡Cada palabra escrita se bloqueará y solo tienes una vida!</h4>
+    </div>
+    <div id="juego">
+      <div id="letras1">
+        <div id="A1">A</div>
+        <div id="B1">B</div>
+        <div id="C1">C</div>
+        <div id="D1">D</div>
+        <div id="E1">E</div>
+        <div id="F1">F</div>
+        <div id="G1">G</div>
+        <div id="H1">H</div>
+        <div id="I1">I</div>
+        <div id="J1">J</div>
+        <div id="L1">L</div>
+        <div id="M1">M</div>
+        <div id="N1">N</div>
+        <div id="O1">O</div>
+        <div id="P1">P</div>
+        <div id="Q1">Q</div>
+        <div id="R1">R</div>
+        <div id="S1">S</div>
+        <div id="T1">T</div>
+        <div id="U1">U</div>
+        <div id="V1">V</div>
+      </div>
+      <div id="jugadores">
+        <div id="marcoj1">
+          <div id="nom1"><img src="Media/p1.png" id="mando1"> <span id="jugador1Texto">Jugador 1 </span></div>
+          <div id="jugador1"></div>
+          <div id="corazon">
+            <div id="j1corazon1"><img src="Media/pixel-heart-2779422_640.png"></div>
+            <div id="j1corazon2"><img src="Media/pixel-heart-2779422_640.png"></div>
+            <div id="j1corazon3"><img src="Media/pixel-heart-2779422_640.png"></div>
+          </div>
+          <input type="text" name="j1" id="j1" onkeydown="verificarEnter1(event)" autocomplete="off"/>
+        </div>
+        <div id="flecha"><img src="Media/pixelarrow.gif" id="flechita"></div>
+        <div id="bomba"><img src="Media/bombainfinita.gif" id="bombita">
+          <div id="letras-bomba" id="letras-bomba"></div>
+        </div>
+        <div id="marcoj2">
+          <div id="nom2"><span id="jugador2Texto"> Jugador 2 </span><img src="Media/p2.png" id="mando2"></div>
+          <div id="jugador2"></div>
+          <div id="corazon">
+            <div id="j2corazon1"><img src="Media/pixel-heart-2779422_640.png"></div>
+            <div id="j2corazon2"><img src="Media/pixel-heart-2779422_640.png"></div>
+            <div id="j2corazon3"><img src="Media/pixel-heart-2779422_640.png"></div>
+          </div>
+          <input type="text" name="j2" id="j2" onkeydown="verificarEnter2(event)" autocomplete="off"/>
+        </div>
+      </div>
+      <div id="letras2">
+        <div id="A2">A</div>
+        <div id="B2">B</div>
+        <div id="C2">C</div>
+        <div id="D2">D</div>
+        <div id="E2">E</div>
+        <div id="F2">F</div>
+        <div id="G2">G</div>
+        <div id="H2">H</div>
+        <div id="I2">I</div>
+        <div id="J2">J</div>
+        <div id="L2">L</div>
+        <div id="M2">M</div>
+        <div id="N2">N</div>
+        <div id="O2">O</div>
+        <div id="P2">P</div>
+        <div id="Q2">Q</div>
+        <div id="R2">R</div>
+        <div id="S2">S</div>
+        <div id="T2">T</div>
+        <div id="U2">U</div>
+        <div id="V2">V</div>
+      </div>
+    </div>
+    </div>
+    <script src="Script.js"></script>
+</body>
+
+</html>
