@@ -20,6 +20,8 @@ document.getElementById("jugador1Texto").innerText =
   localStorage.getItem("jugador1");
 document.getElementById("jugador2Texto").innerText =
   localStorage.getItem("jugador2");
+let palabrasUsadasJ1 = 0;
+let palabrasUsadasJ2 = 0;
 var oneUp = new Audio("Media/8-bit-powerup-6768.mp3");
 var perderVida = new Audio("Media/hurt_c_08-102842.mp3");
 var boom = new Audio("Media/8-bit-explosion-low-resonant-45659.mp3");
@@ -49,14 +51,23 @@ var letrasIDs = {
 function actualizarVidasVisual() {
   actualizarVidas("j1corazon", vidasj1);
   actualizarVidas("j2corazon", vidasj2);
+  let jugadorGanador = "";
 
   if (vidasj1 === 0) {
     fin(marcoj1, mid1, mid2, jugador2);
+    jugadorGanador = document.getElementById('jugador2Texto').innerHTML;
   }
 
   if (vidasj2 === 0) {
     fin(marcoj2, mid1, mid2, jugador1);
+    jugadorGanador = document.getElementById('jugador1Texto').innerHTML;
   }
+  let victoriasGanador = parseInt(localStorage.getItem(`${jugadorGanador}_victorias`)) || 0;
+  victoriasGanador++;
+  localStorage.setItem(`${jugadorGanador}_victorias`, victoriasGanador);
+  localStorage.setItem('jugadorGanador', jugadorGanador);
+  let masPalabrasUsadas = Math.max(palabrasUsadasJ1, palabrasUsadasJ2);
+  localStorage.setItem('masPalabrasUsadas', masPalabrasUsadas);
 }
 
 function actualizarVidas(id, lives) {
@@ -109,6 +120,21 @@ function fin(marco, mid1, mid2, ganador) {
     mid1.style.display = "none";
     mid2.style.display = "none";
     document.getElementById("j1").style.display = "none";
+
+    const botonesPresentes = document.querySelectorAll('.boton-fin');
+    if (botonesPresentes.length === 0) {
+      const contenedorBotones = document.createElement('div');
+      contenedorBotones.style.textAlign = 'center';
+      const botonRanking = document.createElement('button');
+      botonRanking.innerText = 'Ver Ranking';
+      botonRanking.addEventListener('click', function () {
+        window.location.href = 'ranking.html';
+      });
+      botonRanking.classList.add('boton-fin');
+
+      contenedorBotones.appendChild(botonRanking);
+      document.body.appendChild(contenedorBotones);
+    }
   }, 545);
   bgm.pause();
   victoria.play();
@@ -270,6 +296,11 @@ function verificarPalabra1() {
         letrasUsadas(jugador, palabraJugador1);
         ganarVida(jugador);
         cambiarTurno();
+        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
+        if (palabraJugador1.length > palabraMasLarga.length) {
+          localStorage.setItem('palabraMasLarga', palabraJugador1);
+        }
+        palabrasUsadasJ1++;
       } else {
         resultado = "incorrecto";
         correccion(input, resultado);
@@ -323,6 +354,11 @@ function verificarPalabra2() {
         setTimeout(function () {
           cambiarTurno();
         }, 500);
+        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
+        if (palabraJugador2.length > palabraMasLarga.length) {
+          localStorage.setItem('palabraMasLarga', palabraJugador2);
+        }
+        palabrasUsadasJ2++;
       } else {
         resultado = "incorrecto";
         correccion(input, resultado);
@@ -378,4 +414,3 @@ function rotar2(flecha) {
   flecha.id = "rotacion2";
 }
 
-rotar(flecha);

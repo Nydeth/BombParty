@@ -27,14 +27,17 @@ h3{
     margin-right: 20%;
     background-color: blanchedalmond;
 }
-#nombres{
-    margin-bottom: 50px;
-
-}
 
 #volver{
     scale: 1.2;
     background-color: blanchedalmond;
+    margin: 10px;
+}
+
+#volver2{
+    scale: 1.2;
+    background-color: blanchedalmond;
+    margin: 10px;
 }
 
 
