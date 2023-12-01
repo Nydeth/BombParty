@@ -1,25 +1,39 @@
-body{
-    background-color: darkgrey;
+body {
+    background-image: url('Media/bgmain.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    color: white;
 }
-#marco{
-    border: 1px solid black;
-    background-color: rgb(196, 152, 86);
-    border-radius: 5px;
+
+#marco {
     text-align: center;
-    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    animation: fondo 2.3s infinite ease-in-out;
 }
-h1{
+
+@keyframes fondo {
+    from { background-color: rgba(255, 119, 0, 0.4) }
+    to { background-color: rgba(230, 0, 255, 0.4) }
+}
+
+
+h1 {
     margin: 20px;
 }
-#j1nom input, #j2nom input{
+
+#j1nom input, #j2nom input {
     margin-bottom: 50px;
     background-color: blanchedalmond;
 }
 
-#empezar{
+#empezar {
     scale: 1.2;
     margin-bottom: 20px;
     background-color: blanchedalmond;

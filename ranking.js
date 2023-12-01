@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } victorias)`;
       }
 
-      palabra.textContent = palabraMasLarga;
+      palabra.textContent = palabraMasLarga + ' (' + palabraMasLarga.length + ' letras)';
 
       usadas.innerHTML = `${jugador.nombre} (${masPalabrasUsadas})`;
     });
