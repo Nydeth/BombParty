@@ -380,4 +380,3 @@ function rotar2(flecha) {
   flecha.id = "rotacion2";
 }
 
-rotar(flecha);
