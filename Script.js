@@ -16,6 +16,8 @@ const mid2 = document.getElementById("flecha");
 const inputj1 = document.getElementById("j1");
 const inputj2 = document.getElementById("j2");
 const flecha = document.getElementById("flechita");
+let palabrasUsadasJ1 = 0;
+let palabrasUsadasJ2 = 0;
 document.getElementById("jugador1Texto").innerText =
   localStorage.getItem("jugador1");
 document.getElementById("jugador2Texto").innerText =
@@ -49,14 +51,23 @@ var letrasIDs = {
 function actualizarVidasVisual() {
   actualizarVidas("j1corazon", vidasj1);
   actualizarVidas("j2corazon", vidasj2);
+  let jugadorGanador = "";
 
   if (vidasj1 === 0) {
     fin(marcoj1, mid1, mid2, jugador2);
+    jugadorGanador = document.getElementById('jugador2Texto').innerHTML;
   }
 
   if (vidasj2 === 0) {
     fin(marcoj2, mid1, mid2, jugador1);
+    jugadorGanador = document.getElementById('jugador1Texto').innerHTML;
   }
+  let victoriasGanador = parseInt(localStorage.getItem(`${jugadorGanador}_victorias`)) || 0;
+  victoriasGanador++;
+  localStorage.setItem(`${jugadorGanador}_victorias`, victoriasGanador);
+  localStorage.setItem('jugadorGanador', jugadorGanador);
+  let masPalabrasUsadas = Math.max(palabrasUsadasJ1, palabrasUsadasJ2);
+  localStorage.setItem('masPalabrasUsadas', masPalabrasUsadas);
 }
 
 function actualizarVidas(id, lives) {
@@ -109,6 +120,21 @@ function fin(marco, mid1, mid2, ganador) {
     mid1.style.display = "none";
     mid2.style.display = "none";
     document.getElementById("j1").style.display = "none";
+
+    const botonesPresentes = document.querySelectorAll('.boton-fin');
+    if (botonesPresentes.length === 0) {
+      const contenedorBotones = document.createElement('div');
+      contenedorBotones.style.textAlign = 'center';
+      const botonRanking = document.createElement('button');
+      botonRanking.innerText = 'Ver Ranking';
+      botonRanking.addEventListener('click', function () {
+        window.location.href = 'ranking.html';
+      });
+      botonRanking.classList.add('boton-fin');
+
+      contenedorBotones.appendChild(botonRanking);
+      document.body.appendChild(contenedorBotones);
+    }
   }, 545);
   bgm.pause();
   victoria.play();
@@ -216,6 +242,10 @@ function verificarEnter1(event) {
   }
 }
 
+function verificarEnter() {
+
+}
+
 function verificarEnter2(event) {
   if (event.key === "Enter" && inputj2.value != "") {
     verificarPalabra2();
@@ -235,6 +265,34 @@ function verificarEnter2(event) {
   }
 }
 
+function fallo(input, resultado, vidas, marcoPerdedor, ganador, cambiarTurno) {
+  resultado = "incorrecto";
+  correccion(input, resultado);
+  vidas === vidasj1 ? vidasj1-- : vidasj2--;
+  perderVida.play();
+  actualizarVidasVisual();
+  if (vidas === 0) {
+    fin(marcoPerdedor, mid1, mid2, ganador);
+  } else if (cambiarTurno === true) {
+    cambiarTurno();
+  }
+}
+
+function palabraAcertada(palabraJugador, input, resultado, jugador) {
+  acierto.play();
+        usadas.push(palabraJugador);
+        resultado = "correcto";
+        correccion(input, resultado);
+        letrasUsadas(jugador, palabraJugador);
+        ganarVida(jugador);
+        cambiarTurno();
+        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
+        if (palabraJugador.length > palabraMasLarga.length) {
+          localStorage.setItem('palabraMasLarga', palabraJugador);
+        }
+        palabrasUsadasJ1++;
+}
+
 function verificarPalabra1() {
   const palabraJugador1 = document.getElementById("j1").value.toLowerCase();
   const letrasAleatorias = document
@@ -245,95 +303,39 @@ function verificarPalabra1() {
   var resultado = "";
   let jugador = 1;
   if (palabraJugador1.startsWith(".")) {
-    resultado = "incorrecto";
-    correccion(input, resultado);
-    vidasj1--;
-    perderVida.play();
-    actualizarVidasVisual();
-    if (vidasj1 === 0) {
-      fin(marcoj1, mid1, mid2, jugador2);
-    }
+    fallo(input, resultado, vidasj1, marcoj1, jugador2, false);
   }
 
   cargarDiccionario(primeraLetraPalabra1)
     .then(() => {
-      if (
-        arrayDiccionario[primeraLetraPalabra1] &&
-        arrayDiccionario[primeraLetraPalabra1].includes(palabraJugador1) &&
-        palabraJugador1.includes(letrasAleatorias) &&
-        !esPalabraUsada(palabraJugador1)
-      ) {
-        acierto.play();
-        usadas.push(palabraJugador1);
-        resultado = "correcto";
-        correccion(input, resultado);
-        letrasUsadas(jugador, palabraJugador1);
-        ganarVida(jugador);
-        cambiarTurno();
+      if (arrayDiccionario[primeraLetraPalabra1] && arrayDiccionario[primeraLetraPalabra1].includes(palabraJugador1) &&
+         palabraJugador1.includes(letrasAleatorias) && !esPalabraUsada(palabraJugador1)) {
+          palabraAcertada(palabraJugador1, input, resultado, jugador);
       } else {
-        resultado = "incorrecto";
-        correccion(input, resultado);
-        vidasj1--;
-        perderVida.play();
-        actualizarVidasVisual();
-        if (vidasj1 === 0) {
-          fin(marcoj1, mid1, mid2, jugador2);
-        } else {
-          cambiarTurno();
-        }
+        fallo(input, resultado, vidasj1, marcoj1, jugador2, true);
       }
     })
     .catch((error) => console.error(error));
 }
 
+
 function verificarPalabra2() {
   const palabraJugador2 = document.getElementById("j2").value.toLowerCase();
-  const letrasAleatorias = document
-    .getElementById("letras-bomba")
-    .textContent.toLowerCase();
+  const letrasAleatorias = document.getElementById("letras-bomba").textContent.toLowerCase();
   const primeraLetraPalabra2 = palabraJugador2.charAt(0);
   var input = document.getElementById("j2");
   var resultado = "";
   let jugador = 2;
   if (palabraJugador2.startsWith(".")) {
-    resultado = "incorrecto";
-    correccion(input, resultado);
-    vidasj2--;
-    perderVida.play();
-    actualizarVidasVisual();
-    if (vidasj2 === 0) {
-      fin(marcoj2, mid1, mid2, jugador1);
-    }
+    fallo(input, resultado, vidasj2, marcoj2, jugador1, false);
   }
-
   cargarDiccionario(primeraLetraPalabra2)
     .then(() => {
-      if (
-        arrayDiccionario[primeraLetraPalabra2] &&
-        arrayDiccionario[primeraLetraPalabra2].includes(palabraJugador2) &&
-        palabraJugador2.includes(letrasAleatorias) &&
-        !esPalabraUsada(palabraJugador2)
-      ) {
-        acierto.play();
-        usadas.push(palabraJugador2);
-        resultado = "correcto";
-        correccion(input, resultado);
-        letrasUsadas(jugador, palabraJugador2);
-        ganarVida(jugador);
-        setTimeout(function () {
-          cambiarTurno();
-        }, 500);
+      if (arrayDiccionario[primeraLetraPalabra2] && arrayDiccionario[primeraLetraPalabra2].includes(palabraJugador2) &&
+        palabraJugador2.includes(letrasAleatorias) && !esPalabraUsada(palabraJugador2)) {
+        palabraAcertada(palabraJugador2, input, resultado, jugador);
       } else {
-        resultado = "incorrecto";
-        correccion(input, resultado);
-        vidasj2--;
-        perderVida.play();
-        actualizarVidasVisual();
-        if (vidasj2 === 0) {
-          fin(marcoj2, mid1, mid2, jugador1);
-        } else {
-          cambiarTurno();
-        }
+        fallo(input, resultado, vidasj2, marcoj1, jugador2, true);
       }
     })
     .catch((error) => console.error(error));

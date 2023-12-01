@@ -264,3 +264,10 @@ input:focus {
   font-weight: bold;
   color: rgb(0, 250, 255)
 }
+
+.boton-fin{
+  scale: 1.2;
+  background-color: blanchedalmond;
+  margin: 20px;
+}
+

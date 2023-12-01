@@ -11,6 +11,7 @@ function iniciarJuego() {
         }, 1000);
         
         audio.play();
+        bgm.pause();
     } else {
         alert('Por favor, ingresa nombres para ambos jugadores.');
     }
