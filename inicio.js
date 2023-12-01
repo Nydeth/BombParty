@@ -3,7 +3,6 @@ function iniciarJuego() {
     var jugador2 = document.querySelector('#j2nom input').value;
     var start = new Audio('Media/8-bit-powerup-6768.mp3');
     var bgm = document.getElementById('bgm');
-    bgm.volume = 0.2;
 
     if (jugador1 && jugador2) {
         setTimeout(function() {

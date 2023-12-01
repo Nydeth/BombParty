@@ -16,12 +16,12 @@ const mid2 = document.getElementById("flecha");
 const inputj1 = document.getElementById("j1");
 const inputj2 = document.getElementById("j2");
 const flecha = document.getElementById("flechita");
-let palabrasUsadasJ1 = 0;
-let palabrasUsadasJ2 = 0;
 document.getElementById("jugador1Texto").innerText =
   localStorage.getItem("jugador1");
 document.getElementById("jugador2Texto").innerText =
   localStorage.getItem("jugador2");
+let palabrasUsadasJ1 = 0;
+let palabrasUsadasJ2 = 0;
 var oneUp = new Audio("Media/8-bit-powerup-6768.mp3");
 var perderVida = new Audio("Media/hurt_c_08-102842.mp3");
 var boom = new Audio("Media/8-bit-explosion-low-resonant-45659.mp3");
@@ -141,6 +141,9 @@ function mostrarRanking() {
     contenedorBotones.appendChild(botonRanking);
     document.body.appendChild(contenedorBotones);
   }
+  bgm.pause();
+  victoria.play();
+  victoria.loop = true;
 }
 
 function cargarDiccionario(letra) {
@@ -263,34 +266,6 @@ function verificarEnter2(event) {
   }
 }
 
-function fallo(input, resultado, vidas, marcoPerdedor, ganador, cambiarTurno) {
-  resultado = "incorrecto";
-  correccion(input, resultado);
-  vidas === vidasj1 ? vidasj1-- : vidasj2--;
-  perderVida.play();
-  actualizarVidasVisual();
-  if (vidas === 0) {
-    fin(marcoPerdedor, mid1, mid2, ganador);
-  } else if (cambiarTurno === true) {
-    cambiarTurno();
-  }
-}
-
-function palabraAcertada(palabraJugador, input, resultado, jugador) {
-  acierto.play();
-        usadas.push(palabraJugador);
-        resultado = "correcto";
-        correccion(input, resultado);
-        letrasUsadas(jugador, palabraJugador);
-        ganarVida(jugador);
-        cambiarTurno();
-        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
-        if (palabraJugador.length > palabraMasLarga.length) {
-          localStorage.setItem('palabraMasLarga', palabraJugador);
-        }
-        palabrasUsadasJ1++;
-}
-
 function verificarPalabra1() {
   const palabraJugador1 = document.getElementById("j1").value.toLowerCase();
   const letrasAleatorias = document
@@ -301,39 +276,105 @@ function verificarPalabra1() {
   var resultado = "";
   let jugador = 1;
   if (palabraJugador1.startsWith(".")) {
-    fallo(input, resultado, vidasj1, marcoj1, jugador2, false);
+    resultado = "incorrecto";
+    correccion(input, resultado);
+    vidasj1--;
+    perderVida.play();
+    actualizarVidasVisual();
+    if (vidasj1 === 0) {
+      fin(marcoj1, mid1, mid2, jugador2);
+    }
   }
 
   cargarDiccionario(primeraLetraPalabra1)
     .then(() => {
-      if (arrayDiccionario[primeraLetraPalabra1] && arrayDiccionario[primeraLetraPalabra1].includes(palabraJugador1) &&
-         palabraJugador1.includes(letrasAleatorias) && !esPalabraUsada(palabraJugador1)) {
-          palabraAcertada(palabraJugador1, input, resultado, jugador);
+      if (
+        arrayDiccionario[primeraLetraPalabra1] &&
+        arrayDiccionario[primeraLetraPalabra1].includes(palabraJugador1) &&
+        palabraJugador1.includes(letrasAleatorias) &&
+        !esPalabraUsada(palabraJugador1)
+      ) {
+        acierto.play();
+        usadas.push(palabraJugador1);
+        resultado = "correcto";
+        correccion(input, resultado);
+        letrasUsadas(jugador, palabraJugador1);
+        ganarVida(jugador);
+        cambiarTurno();
+        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
+        if (palabraJugador1.length > palabraMasLarga.length) {
+          localStorage.setItem('palabraMasLarga', palabraJugador1);
+        }
+        palabrasUsadasJ1++;
       } else {
-        fallo(input, resultado, vidasj1, marcoj1, jugador2, true);
+        resultado = "incorrecto";
+        correccion(input, resultado);
+        vidasj1--;
+        perderVida.play();
+        actualizarVidasVisual();
+        if (vidasj1 === 0) {
+          fin(marcoj1, mid1, mid2, jugador2);
+        } else {
+          cambiarTurno();
+        }
       }
     })
     .catch((error) => console.error(error));
 }
 
-
 function verificarPalabra2() {
   const palabraJugador2 = document.getElementById("j2").value.toLowerCase();
-  const letrasAleatorias = document.getElementById("letras-bomba").textContent.toLowerCase();
+  const letrasAleatorias = document
+    .getElementById("letras-bomba")
+    .textContent.toLowerCase();
   const primeraLetraPalabra2 = palabraJugador2.charAt(0);
   var input = document.getElementById("j2");
   var resultado = "";
   let jugador = 2;
   if (palabraJugador2.startsWith(".")) {
-    fallo(input, resultado, vidasj2, marcoj2, jugador1, false);
+    resultado = "incorrecto";
+    correccion(input, resultado);
+    vidasj2--;
+    perderVida.play();
+    actualizarVidasVisual();
+    if (vidasj2 === 0) {
+      fin(marcoj2, mid1, mid2, jugador1);
+    }
   }
+
   cargarDiccionario(primeraLetraPalabra2)
     .then(() => {
-      if (arrayDiccionario[primeraLetraPalabra2] && arrayDiccionario[primeraLetraPalabra2].includes(palabraJugador2) &&
-        palabraJugador2.includes(letrasAleatorias) && !esPalabraUsada(palabraJugador2)) {
-        palabraAcertada(palabraJugador2, input, resultado, jugador);
+      if (
+        arrayDiccionario[primeraLetraPalabra2] &&
+        arrayDiccionario[primeraLetraPalabra2].includes(palabraJugador2) &&
+        palabraJugador2.includes(letrasAleatorias) &&
+        !esPalabraUsada(palabraJugador2)
+      ) {
+        acierto.play();
+        usadas.push(palabraJugador2);
+        resultado = "correcto";
+        correccion(input, resultado);
+        letrasUsadas(jugador, palabraJugador2);
+        ganarVida(jugador);
+        setTimeout(function () {
+          cambiarTurno();
+        }, 500);
+        let palabraMasLarga = localStorage.getItem('palabraMasLarga') || '';
+        if (palabraJugador2.length > palabraMasLarga.length) {
+          localStorage.setItem('palabraMasLarga', palabraJugador2);
+        }
+        palabrasUsadasJ2++;
       } else {
-        fallo(input, resultado, vidasj2, marcoj1, jugador2, true);
+        resultado = "incorrecto";
+        correccion(input, resultado);
+        vidasj2--;
+        perderVida.play();
+        actualizarVidasVisual();
+        if (vidasj2 === 0) {
+          fin(marcoj2, mid1, mid2, jugador1);
+        } else {
+          cambiarTurno();
+        }
       }
     })
     .catch((error) => console.error(error));
@@ -377,3 +418,4 @@ function rotar(flecha) {
 function rotar2(flecha) {
   flecha.id = "rotacion2";
 }
+
