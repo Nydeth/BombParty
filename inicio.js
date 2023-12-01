@@ -1,7 +1,9 @@
 function iniciarJuego() {
     var jugador1 = document.querySelector('#j1nom input').value;
     var jugador2 = document.querySelector('#j2nom input').value;
-    var audio = new Audio('Media/8-bit-powerup-6768.mp3');
+    var start = new Audio('Media/8-bit-powerup-6768.mp3');
+    var bgm = document.getElementById('bgm');
+    bgm.volume = 0.2;
 
     if (jugador1 && jugador2) {
         setTimeout(function() {
@@ -10,7 +12,7 @@ function iniciarJuego() {
             window.location.href = 'BombParty.html';
         }, 1000);
         
-        audio.play();
+        start.play();
         bgm.pause();
     } else {
         alert('Por favor, ingresa nombres para ambos jugadores.');

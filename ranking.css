@@ -1,25 +1,38 @@
-body{
-    background-color: darkgrey;
+body {
+    background-image: url('Media/fireworks.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
-#marco{
-    border: 1px solid black;
-    background-color: rgb(196, 152, 86);
-    border-radius: 5px;
+
+#marco {
     text-align: center;
-    height: auto;
-    width: 400px;
+    background-color: rgba(164, 32, 176, 0.6);
+    padding: 20px;
+    border-radius: 10px;
 }
+
+#palabraLarga, #palabrasUsadas, #nombres {
+    
+    color: white;
+}
+
+
 h1{
     margin: 20px;
 }
+
 #trofeo1{
     width: 30px;
     height: 30px;
     border: 5px;
 }
+
 h3{
     border: 1px solid black;
     border-radius: 5px;

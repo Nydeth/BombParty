@@ -25,9 +25,7 @@ document.getElementById("jugador2Texto").innerText =
 var oneUp = new Audio("Media/8-bit-powerup-6768.mp3");
 var perderVida = new Audio("Media/hurt_c_08-102842.mp3");
 var boom = new Audio("Media/8-bit-explosion-low-resonant-45659.mp3");
-var victoria = new Audio(
-  "Media/[8-BIT] Final Fantasy VII Victory Theme - Fanfare.mp3"
-);
+var victoria = new Audio("Media/[8-BIT] Final Fantasy VII Victory Theme - Fanfare.mp3");
 var acierto = new Audio("Media/beep3-98810.mp3");
 var bgm = document.getElementById("bgm");
 
@@ -70,10 +68,10 @@ function actualizarVidasVisual() {
   localStorage.setItem('masPalabrasUsadas', masPalabrasUsadas);
 }
 
-function actualizarVidas(id, lives) {
+function actualizarVidas(id, vidas) {
   for (let i = 1; i <= 3; i++) {
     const corazón = document.getElementById(`${id}${i}`);
-    if (i <= lives) {
+    if (i <= vidas) {
       corazón.innerHTML = '<img src="Media/pixel-heart-2779422_640.png">';
       corazón.style.display = "inline-block";
     } else {
@@ -120,25 +118,29 @@ function fin(marco, mid1, mid2, ganador) {
     mid1.style.display = "none";
     mid2.style.display = "none";
     document.getElementById("j1").style.display = "none";
-
-    const botonesPresentes = document.querySelectorAll('.boton-fin');
-    if (botonesPresentes.length === 0) {
-      const contenedorBotones = document.createElement('div');
-      contenedorBotones.style.textAlign = 'center';
-      const botonRanking = document.createElement('button');
-      botonRanking.innerText = 'Ver Ranking';
-      botonRanking.addEventListener('click', function () {
-        window.location.href = 'ranking.html';
-      });
-      botonRanking.classList.add('boton-fin');
-
-      contenedorBotones.appendChild(botonRanking);
-      document.body.appendChild(contenedorBotones);
-    }
   }, 545);
   bgm.pause();
+  mostrarRanking();
   victoria.play();
   victoria.loop = true;
+}
+
+function mostrarRanking() {
+  const botonesPresentes = document.querySelectorAll('.boton-fin');
+
+  if (botonesPresentes.length === 0) {
+    const contenedorBotones = document.createElement('div');
+    contenedorBotones.style.textAlign = 'center';
+    const botonRanking = document.createElement('button');
+    botonRanking.innerText = 'Ver Ranking';
+    botonRanking.addEventListener('click', function () {
+      window.location.href = 'ranking.html'; 
+    });
+
+    botonRanking.classList.add('boton-fin');
+    contenedorBotones.appendChild(botonRanking);
+    document.body.appendChild(contenedorBotones);
+  }
 }
 
 function cargarDiccionario(letra) {
@@ -240,10 +242,6 @@ function verificarEnter1(event) {
       }
     }, 723);
   }
-}
-
-function verificarEnter() {
-
 }
 
 function verificarEnter2(event) {
@@ -379,4 +377,3 @@ function rotar(flecha) {
 function rotar2(flecha) {
   flecha.id = "rotacion2";
 }
-
