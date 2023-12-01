@@ -2,6 +2,8 @@ function iniciarJuego() {
     var jugador1 = document.querySelector('#j1nom input').value;
     var jugador2 = document.querySelector('#j2nom input').value;
     var audio = new Audio('Media/8-bit-powerup-6768.mp3');
+    var audio2 = document.getElementById('bgm');
+    audio2.volume = 0.2;
 
     if (jugador1 && jugador2) {
         setTimeout(function() {
