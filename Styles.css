@@ -26,7 +26,7 @@
 }
 
 #jugador1 {
-  background-color: red;
+  background-image: url("Media/Avatar\ 1.jpg");
   width: 70%;
   height: 100px;
 }
@@ -66,7 +66,7 @@
 }
 
 #jugador2 {
-  background-color: blue;
+  background-image: url("Media/Avatar\ 2.jpg");
   width: 70%;
   height: 100px;
   position: relative;
