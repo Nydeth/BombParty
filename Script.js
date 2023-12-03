@@ -16,6 +16,8 @@ const mid2 = document.getElementById("flecha");
 const inputj1 = document.getElementById("j1");
 const inputj2 = document.getElementById("j2");
 const flecha = document.getElementById("flechita");
+const letras1 = document.getElementById("letras1");
+const letras2 = document.getElementById("letras2");
 document.getElementById("jugador1Texto").innerText =
   localStorage.getItem("jugador1");
 document.getElementById("jugador2Texto").innerText =
@@ -117,6 +119,8 @@ function fin(marco, mid1, mid2, ganador) {
     marco.style.display = "none";
     mid1.style.display = "none";
     mid2.style.display = "none";
+    letras1.style.visibility = "hidden";
+    letras2.style.visibility = "hidden";
     document.getElementById("j1").style.display = "none";
   }, 545);
   bgm.pause();
