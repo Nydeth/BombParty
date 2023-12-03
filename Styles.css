@@ -136,8 +136,7 @@
   width: auto;
 }
 
-#letras1,
-#letras2 {
+#letras1, #letras2 {
   width: 80px;
   display: flex;
   flex-wrap: wrap;
@@ -242,7 +241,7 @@ input:focus {
   }
 }
 
-.boton-fin{
+.boton-fin {
   scale: 1.2;
   background-color: blanchedalmond;
   margin: 20px;
@@ -258,8 +257,7 @@ input:focus {
   object-fit: cover;
 }
 
-#jugador1Texto,
-#jugador2Texto {
+#jugador1Texto, #jugador2Texto {
   background-color: rgba(149, 0, 255, 0.3);
   border-radius: 10px;
   font-size: 23px;
@@ -276,8 +274,7 @@ input:focus {
     row-gap: 25px;
   }
 
-  #letras1,
-  #letras2 {
+  #letras1, #letras2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -292,13 +289,13 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
     row-gap: 20px;
-    width: 100%; /* Set to 100% to take full width */
+    width: 100%;
   }
 
   #instrucciones {
     font-size: small;
-    width: 100%; /* Set to 100% to take full width */
-    text-align: center; /* Align the text to the center */
+    width: 100%;
+    text-align: center;
   }
 
   #bomba {
@@ -317,8 +314,7 @@ input:focus {
     width: 100px;
   }
 
-  #j1,
-  #j2 {
+  #j1, #j2 {
     width: 80%;
   }
 
@@ -343,11 +339,17 @@ input:focus {
     margin: 20px;
   }
 
+  #letras1, #letras2 {
+    scale: 0.5;
+    width: 100%;
+  }
+
   #jugadores {
     display: flex;
     flex-wrap: wrap;
     row-gap: 20px;
     column-gap: 150px;
+    scale: 0.9;
   }
   #bomba {
     position: absolute;
