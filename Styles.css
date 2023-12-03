@@ -1,7 +1,8 @@
 #jugadores {
   display: flex;
-  column-gap: 150px;
   align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 #marcoj1, #marcoj2 {
@@ -77,12 +78,11 @@
 
 #flecha {
   align-self: center;
+  width: auto;
 }
 
 #bomba {
   position: absolute;
-  left: 45.3%;
-  align-self: center;
   object-fit: cover;
 }
 
@@ -90,6 +90,7 @@
   height: 200px;
   width: 100%;
   object-fit: cover;
+  animation: cambiar 3s linear infinite;
 }
 
 @keyframes cambiar {
@@ -102,16 +103,15 @@
   }
 }
 
-#bomba img {
-  animation: cambiar 3s linear infinite;
-}
-
 #bomba[src="Media/bomba2.png"] {
   animation-delay: 0s;
 }
 
 #bomba[src="Media/Explosion.gif"] img {
   animation: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 #bomba.explosion img {
@@ -121,8 +121,8 @@
 #letras-bomba {
   position: absolute;
   text-align: center;
-  top: 64%;
-  left: 49%;
+  top: 69%;
+  left: 48%;
   transform: translate(-50%, -50%);
   font-size: 37px;
   color: white;
@@ -132,10 +132,8 @@
 
 #juego {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  margin-left: 100px;
-  margin-right: 100px;
+  justify-content: space-evenly;
+  width: auto;
 }
 
 #letras1,
@@ -164,6 +162,8 @@
   border-radius: 20px;
   font-weight: bold;
   font-size: large;
+  color: white;
+  text-shadow: 2px 2px 2px black, -2px -2px 2px black, 2px -2px 2px black, -2px 2px 2px black;
 }
 
 body {
@@ -265,4 +265,109 @@ input:focus {
   font-size: 23px;
   font-weight: bold;
   color: rgb(0, 250, 255)
+}
+
+
+@media only screen and (max-width: 640px) {
+  #juego {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    row-gap: 25px;
+  }
+
+  #letras1,
+  #letras2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #letras-bomba {
+    scale: 0.77;
+  }
+
+  #jugadores {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    width: 100%; /* Set to 100% to take full width */
+  }
+
+  #instrucciones {
+    font-size: small;
+    width: 100%; /* Set to 100% to take full width */
+    text-align: center; /* Align the text to the center */
+  }
+
+  #bomba {
+    position: absolute;
+    margin-bottom: 60px;
+    object-fit: cover;
+  }
+
+  #bomba img {
+    animation: cambiar 3s linear infinite;
+    scale: 0.6;
+  }
+
+  #flecha img {
+    height: 140px;
+    width: 100px;
+  }
+
+  #j1,
+  #j2 {
+    width: 80%;
+  }
+
+  #correcto {
+    width: 80%;
+    border-radius: 7px;
+  }
+
+  #incorrecto {
+    width: 80%;
+    border-radius: 7px;
+  }
+}
+
+
+@media only screen and (max-width: 400px) {
+
+  #juego {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    margin: 20px;
+  }
+
+  #jugadores {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 150px;
+  }
+  #bomba {
+    position: absolute;
+    margin: 30px;
+    object-fit: cover;
+  }
+  
+  #letras-bomba {
+    position: absolute;
+    text-align: center;
+    top: 65%;
+    left: 48%;
+  }
+  #flecha img {
+    rotate: 90deg;
+  }
+
+  #instrucciones {
+    font-size: small;
+    width: 100%;
+  }
+  
 }

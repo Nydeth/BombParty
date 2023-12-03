@@ -224,7 +224,6 @@ h3{
     }
 }
 
-/* Tamaño de pantalla: <= 599px */
 @media screen and (max-width: 599px) {
     body {
         font-size: 14px;
