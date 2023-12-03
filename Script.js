@@ -112,8 +112,14 @@ function fin(marco, mid1, mid2, ganador) {
   explosion();
   setTimeout(function () {
     document.getElementById("j2").style.display = "none";
-    ganador.style.backgroundImage = "url('Media/winner.png')";
-    ganador.style.backgroundSize = "105px 100px";
+    var corona = document.createElement("img");
+    corona.src = "Media/winner.png";
+    corona.style.width = "105px";
+    corona.style.height = "100px";
+    corona.style.position = "absolute";
+    corona.style.top = "0";
+    corona.style.left = "0";
+    ganador.appendChild(corona);
     marco.style.display = "none";
     mid1.style.display = "none";
     mid2.style.display = "none";
@@ -124,6 +130,7 @@ function fin(marco, mid1, mid2, ganador) {
   victoria.play();
   victoria.loop = true;
 }
+
 
 function mostrarRanking() {
   const botonesPresentes = document.querySelectorAll('.boton-fin');
