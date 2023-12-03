@@ -88,13 +88,12 @@ function explosion() {
   var letras = document.getElementById("letras-bomba");
   boom.play();
   bomba.src = "Media/Explosion.gif";
+  flecha.style.visibility = "hidden";
   bomba.style.animation = "none";
   letras.style.display = "none";
-  flecha.style.visibility = "hidden";
   bomba.style.height = "300px";
   bomba.style.width = "300px";
   bomba.style.position = "relative";
-  bomba.style.left = "-34%";
   setTimeout(function () {
     bomba.style.display = "none";
   }, duracion);
