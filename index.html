@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="inicio.css" />
+    <audio src="./Media/2020-03-22_-_A_Bit_Of_Hope_-_David_Fesliyan.mp3" id="bgm" autoplay loop></audio>
+</head>
+<body>
+    <div id="marco">
+        <h1> ¡Bienvenidos a BombParty! </h1>
+        <br>
+        <h3>Elegid un nombre de jugador</h3>
+        <br>
+        <div id="nombres">
+            <label id="j1nom">Jugador 1: <input type="text" maxlength="15"></label>
+            <br>
+            <label id="j2nom">Jugador 2: <input type="text" maxlength="15"></label>
+        </div>
+        <button id="empezar" onclick="iniciarJuego();">START</button>
+    </div>
+</body>
+<script src="./inicio.js"></script>
+</html>
