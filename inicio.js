@@ -8,7 +8,7 @@ function iniciarJuego() {
         setTimeout(function() {
             localStorage.setItem('jugador1', jugador1);
             localStorage.setItem('jugador2', jugador2);
-            window.location.href = 'bombParty.html';
+            window.location.href = 'BombParty.html';
         }, 1000);
         
         start.play();

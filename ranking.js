@@ -1,9 +1,9 @@
 function iniciarJuego() {
-  window.location.href = "bombParty.html";
+  window.location.href = "BombParty.html";
 }
 
 function volverJuego() {
-  window.location.href = "inicio.html";
+  window.location.href = "index.html";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
