@@ -137,7 +137,7 @@ function mostrarRanking() {
     const botonRanking = document.createElement('button');
     botonRanking.innerText = 'Ver Ranking';
     botonRanking.addEventListener('click', function () {
-      window.location.href = 'ranking.html'; 
+      window.location.href = 'Ranking.html';
     });
 
     botonRanking.classList.add('boton-fin');
