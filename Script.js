@@ -177,7 +177,7 @@ function cargarDiccionario(letra) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", iniciar());
+document.addEventListener("DOMContentLoaded", iniciar);
 
 function iniciar() {
   const vocalAleatoria = vocales.charAt(
