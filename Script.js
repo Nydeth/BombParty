@@ -150,13 +150,14 @@ function mostrarRanking() {
 }
 
 function cargarDiccionario(letra) {
-  if (!arrayDiccionario[letra]) {
+  const letraMayuscula = letra.toUpperCase();
+  if (!arrayDiccionario[letraMayuscula]) {
     return new Promise((resolve, reject) => {
-      fetch(`./diccionario/Diccionario_${letra}.txt`)
+      fetch(`./diccionario/Diccionario_${letraMayuscula}.txt`)
         .then((response) => {
           if (!response.ok) {
             reject(
-              `Error al cargar el diccionario para la letra ${letra}. Estado: ${response.status}`
+              `Error al cargar el diccionario para la letra ${letraMayuscula}. Estado: ${response.status}`
             );
           } else {
             return response.text();
@@ -164,7 +165,7 @@ function cargarDiccionario(letra) {
         })
         .then((txt) => {
           var lineas = txt.split("\n");
-          arrayDiccionario[letra] = lineas.map((linea) => linea.trim());
+          arrayDiccionario[letraMayuscula] = lineas.map((linea) => linea.trim().toLowerCase());
           resolve();
         })
         .catch((error) => {
@@ -274,7 +275,7 @@ function verificarPalabra1() {
   const letrasAleatorias = document
     .getElementById("letras-bomba")
     .textContent.toLowerCase();
-  const primeraLetraPalabra1 = palabraJugador1.charAt(0);
+  const primeraLetraPalabra1 = palabraJugador1.charAt(0).toUpperCase();
   var input = document.getElementById("j1");
   var resultado = "";
   let jugador = 1;
@@ -322,7 +323,19 @@ function verificarPalabra1() {
         }
       }
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      resultado = "incorrecto";
+      correccion(input, resultado);
+      vidasj1--;
+      perderVida.play();
+      actualizarVidasVisual();
+      if (vidasj1 === 0) {
+        fin(marcoj1, mid1, mid2, jugador2);
+      } else {
+        cambiarTurno();
+      }
+    });
 }
 
 function verificarPalabra2() {
@@ -330,7 +343,7 @@ function verificarPalabra2() {
   const letrasAleatorias = document
     .getElementById("letras-bomba")
     .textContent.toLowerCase();
-  const primeraLetraPalabra2 = palabraJugador2.charAt(0);
+  const primeraLetraPalabra2 = palabraJugador2.charAt(0).toUpperCase();
   var input = document.getElementById("j2");
   var resultado = "";
   let jugador = 2;
@@ -380,7 +393,19 @@ function verificarPalabra2() {
         }
       }
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      resultado = "incorrecto";
+      correccion(input, resultado);
+      vidasj2--;
+      perderVida.play();
+      actualizarVidasVisual();
+      if (vidasj2 === 0) {
+        fin(marcoj2, mid1, mid2, jugador1);
+      } else {
+        cambiarTurno();
+      }
+    });
 }
 
 function letrasUsadas(jugador, palabra) {
