@@ -152,7 +152,7 @@ function mostrarRanking() {
 function cargarDiccionario(letra) {
   if (!arrayDiccionario[letra]) {
     return new Promise((resolve, reject) => {
-      fetch(`diccionario/Diccionario_${letra}.txt`)
+      fetch(`./diccionario/Diccionario_${letra}.txt`)
         .then((response) => {
           if (!response.ok) {
             reject(
