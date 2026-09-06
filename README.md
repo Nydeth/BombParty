@@ -39,7 +39,8 @@ No requiere de ningún entorno de ejecución backend o gestor de paquetes comple
    git clone [https://github.com/Nydeth/BombParty.git](https://github.com/Nydeth/BombParty.git)
    
 2. **Acceder al directorio:**
-cd BombParty
+   ```bash
+   cd BombParty
 
 3. **Ejecutar la aplicación:**
 Abre el archivo index.html en tu navegador preferido o utiliza una extensión como Live Server en VS Code.
